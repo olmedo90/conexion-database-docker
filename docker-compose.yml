@@ -1,0 +1,21 @@
+version: "3.9" #para especificar la vercion en el formato yml
+services: #los contenedores que vamos a crear
+  app:  #nombre del contenedor q camos a conectarnos puede ser el que desea
+    container_name: app-name #nombre del app name
+    restart: always #le decimos q cuando caiga el servidor reinicie siempre
+    build: . # decimos q construya apartir del directorio actual
+    ports: 
+      - "5000:3000" #decimos en que puerto va ejecutar 
+    links: #para q se conecte con el cotro contenedor  
+      - mongo #inca que estamos enlazando con mongo
+    volumes: #indica que copie toda las demas direcciones al archivos q stamos trabajando
+      - .:/class/app
+  mongo: #nombre del otro contenedor q vamos a conectarnos puede ser cualquiera
+    container_name: mydatabasemongo #nombre del contenedor
+    image: mongo #decimos en que imagen nos vamos a conectar
+    ports: 
+      - "27018:27017" # indicamos los puertos 27018 en la maquina 27017 en el contenedor de docker
+    logging:
+      driver: none #para indicar que no queremos ver los log q aparece
+    
+
